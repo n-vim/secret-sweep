@@ -1,0 +1,71 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "secret-sweep"
+version = "0.1.0"
+description = "A Python CLI that scans repositories for leaked secrets, risky files, and unsafe environment configuration."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [
+  { name = "Nitish Vimal" }
+]
+keywords = ["python", "cli", "security", "secrets", "scanner", "repository", "developer-tools"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Security",
+  "Topic :: Software Development :: Quality Assurance",
+  "Topic :: Utilities",
+]
+dependencies = [
+  "typer>=0.9.0",
+  "rich>=13.0.0",
+  "PyYAML>=6.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.0.0",
+  "ruff>=0.4.0",
+  "mypy>=1.8.0",
+]
+
+[project.scripts]
+secretsweep = "secretsweep.cli:app"
+secret-sweep = "secretsweep.cli:app"
+
+[project.urls]
+Homepage = "https://github.com/n-vim/secret-sweep"
+Repository = "https://github.com/n-vim/secret-sweep"
+Issues = "https://github.com/n-vim/secret-sweep/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/secretsweep"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+python_version = "3.9"
+strict = true
+warn_unused_ignores = true
+warn_return_any = true
+exclude = ["tests/fixtures"]
